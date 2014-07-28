@@ -7,7 +7,6 @@
         <authors>Dan Esparza</authors>
         <owners>danesparza</owners>
         <projectUrl>https://github.com/danesparza/iTunesSearch</projectUrl>
-        <iconUrl />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>.NET Wrapper for the iTunes search API.</description>
         <summary />
@@ -15,8 +14,6 @@
         <copyright>Copyright 2014</copyright>
         <language>en-US</language>
         <tags>itunes search artwork tv show movies</tags>
-        <dependencies />
-        <references />
     </metadata>
     <files>
         <file src="bin\Release\iTunesSearch.Library.dll" target="lib\net40\iTunesSearch.Library.dll" />
