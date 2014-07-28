@@ -15,7 +15,7 @@ namespace iTunesSearch.Library
     /// A wrapper for the iTunes search API.  More information here: 
     /// https://www.apple.com/itunes/affiliates/resources/documentation/itunes-store-web-service-search-api.html
     /// </summary>
-    public class iTunesSearch
+    public class iTunesSearchManager
     {
         /// <summary>
         /// The base API url for iTunes search

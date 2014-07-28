@@ -11,7 +11,7 @@ namespace iTunesSearch.Library.Tests
         public void GetEpisodesForShow_ValidShow_ReturnsEpisodes()
         {
             //  Arrange
-            iTunesSearch search = new iTunesSearch();
+            iTunesSearchManager search = new iTunesSearchManager();
             string showName = "Modern Family";
 
             //  Act
