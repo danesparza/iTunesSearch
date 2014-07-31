@@ -45,6 +45,8 @@
     <Compile Include="iTunesSearchManager.cs" />
     <Compile Include="Models\TVEpisode.cs" />
     <Compile Include="Models\TVEpisodeListResult.cs" />
+    <Compile Include="Models\TVSeason.cs" />
+    <Compile Include="Models\TVSeasonListResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
