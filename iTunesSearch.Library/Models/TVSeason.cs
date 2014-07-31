@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
 namespace iTunesSearch.Library.Models
@@ -6,6 +7,11 @@ namespace iTunesSearch.Library.Models
     [DataContract]
     public class TVSeason
     {
+        [DataMember(Name = "artistId")]
+        public int ShowId { get; set; }
+
+        [DataMember(Name = "collectionId")]
+        public int SeasonId { get; set; }
 
         [DataMember(Name = "collectionName")]
         public string SeasonName { get; set; }
