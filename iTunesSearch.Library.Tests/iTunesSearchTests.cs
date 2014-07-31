@@ -10,28 +10,28 @@ namespace iTunesSearch.Library.Tests
     public class iTunesSearchTests
     {
         [TestMethod]
-        public void GetEpisodesForShow_ValidShow_ReturnsEpisodes()
+        public void GetTVEpisodesForShow_ValidShow_ReturnsEpisodes()
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
             string showName = "Modern Family";
 
             //  Act
-            var items = search.GetEpisodesForShow(showName, 200).Result;
+            var items = search.GetTVEpisodesForShow(showName, 200).Result;
 
             //  Assert
             Assert.IsTrue(items.Episodes.Any());
         }
 
         [TestMethod]
-        public void GetEpisodesForShow_ValidShow_GroupedEpisodes()
+        public void GetTVEpisodesForShow_ValidShow_GroupedEpisodes()
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
             string showName = "Modern Family";
 
             //  Act
-            var items = search.GetEpisodesForShow(showName, 200).Result;
+            var items = search.GetTVEpisodesForShow(showName, 200).Result;
             var seasons = from episode in items.Episodes
                           orderby episode.Number
                              group episode by episode.SeasonNumber into seasonGroup
@@ -51,17 +51,32 @@ namespace iTunesSearch.Library.Tests
         }
 
         [TestMethod]
-        public void GetSeasonsForShow_ValidShow_ReturnsShows()
+        public void GetTVSeasonsForShow_ValidShow_ReturnsShows()
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
             string showName = "Modern Family";
 
             //  Act
-            var items = search.GetSeasonsForShow(showName).Result;
+            var items = search.GetTVSeasonsForShow(showName).Result;
 
             //  Assert
             Assert.IsTrue(items.Seasons.Any());
+        }
+
+        [TestMethod]
+        public void GetTVSeasonById_ValidSeasonId_ReturnsShow()
+        {
+            //  Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long seasonId = 327827178;
+
+            //  Act
+            var items = search.GetTVSeasonById(seasonId).Result;
+
+            //  Assert
+            Assert.IsTrue(items.Seasons.Any());
+            Assert.AreEqual<string>("Modern Family", items.Seasons.First().ShowName);
         }
     }
 }

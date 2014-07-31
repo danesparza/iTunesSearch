@@ -22,6 +22,11 @@ namespace iTunesSearch.Library
         /// </summary>
         private string _baseSearchUrl = "https://itunes.apple.com/search?{0}";
 
+        /// <summary>
+        /// The base API url for iTunes lookups
+        /// </summary>
+        private string _baseLookupUrl = "https://itunes.apple.com/lookup?{0}";
+
         #region TV shows
 
         /// <summary>
@@ -30,7 +35,7 @@ namespace iTunesSearch.Library
         /// <param name="showName">The TV show name to search for</param>
         /// <param name="resultLimit">Limit the result count to this number</param>
         /// <returns></returns>
-        public async Task<TVEpisodeListResult> GetEpisodesForShow(string showName, int resultLimit = 100)
+        public async Task<TVEpisodeListResult> GetTVEpisodesForShow(string showName, int resultLimit = 100)
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
@@ -56,7 +61,7 @@ namespace iTunesSearch.Library
         /// <param name="showName">The TV show name to search for</param>
         /// <param name="resultLimit">Limit the result count to this number</param>
         /// <returns></returns>
-        public async Task<TVSeasonListResult> GetSeasonsForShow(string showName, int resultLimit = 10)
+        public async Task<TVSeasonListResult> GetTVSeasonsForShow(string showName, int resultLimit = 10)
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
@@ -74,7 +79,28 @@ namespace iTunesSearch.Library
             var result = await MakeAPICall<TVSeasonListResult>(apiUrl);
 
             return result;
-        } 
+        }
+
+        /// <summary>
+        /// Looks up a TV show season by its unique iTunes season id
+        /// </summary>
+        /// <param name="seasonId"></param>
+        /// <returns></returns>
+        public async Task<TVSeasonListResult> GetTVSeasonById(long seasonId)
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            //  Set attributes for a TV season.  
+            nvc.Add("id", seasonId.ToString());
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = await MakeAPICall<TVSeasonListResult>(apiUrl);
+
+            return result;
+        }
 
         #endregion
 
