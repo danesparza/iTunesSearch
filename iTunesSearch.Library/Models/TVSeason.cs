@@ -8,10 +8,10 @@ namespace iTunesSearch.Library.Models
     public class TVSeason
     {
         [DataMember(Name = "artistId")]
-        public int ShowId { get; set; }
+        public long ShowId { get; set; }
 
         [DataMember(Name = "collectionId")]
-        public int SeasonId { get; set; }
+        public long SeasonId { get; set; }
 
         [DataMember(Name = "artistName")]
         public string ShowName { get; set; }
