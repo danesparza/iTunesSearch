@@ -24,7 +24,7 @@ namespace iTunesSearch.Library.Tests
         }
 
         [TestMethod]
-        public void GetSeasonsAndEpisodesForShow_ValidShow_ReturnsEpisodes()
+        public void GetEpisodesForShow_ValidShow_GroupedEpisodes()
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
@@ -48,6 +48,20 @@ namespace iTunesSearch.Library.Tests
                     Debug.WriteLine("Ep {0}: {1}", episode.Number, episode.Name);
                 }
             }
+        }
+
+        [TestMethod]
+        public void GetSeasonsForShow_ValidShow_ReturnsShows()
+        {
+            //  Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string showName = "Modern Family";
+
+            //  Act
+            var items = search.GetSeasonsForShow(showName).Result;
+
+            //  Assert
+            Assert.IsTrue(items.Seasons.Any());
         }
     }
 }

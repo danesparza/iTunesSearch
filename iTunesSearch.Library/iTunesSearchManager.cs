@@ -22,11 +22,13 @@ namespace iTunesSearch.Library
         /// </summary>
         private string _baseSearchUrl = "https://itunes.apple.com/search?{0}";
 
+        #region TV shows
+
         /// <summary>
         /// Get a list of episodes for a given TV show
         /// </summary>
-        /// <param name="showName"></param>
-        /// <param name="resultLimit"></param>
+        /// <param name="showName">The TV show name to search for</param>
+        /// <param name="resultLimit">Limit the result count to this number</param>
         /// <returns></returns>
         public async Task<TVEpisodeListResult> GetEpisodesForShow(string showName, int resultLimit = 100)
         {
@@ -48,7 +50,35 @@ namespace iTunesSearch.Library
             return result;
         }
 
-        
+        /// <summary>
+        /// Get a list of seasons for a given TV show
+        /// </summary>
+        /// <param name="showName">The TV show name to search for</param>
+        /// <param name="resultLimit">Limit the result count to this number</param>
+        /// <returns></returns>
+        public async Task<TVSeasonListResult> GetSeasonsForShow(string showName, int resultLimit = 10)
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            //  Set attributes for a TV season.  
+            nvc.Add("term", showName);
+            nvc.Add("media", "tvShow");
+            nvc.Add("entity", "tvSeason");
+            nvc.Add("attribute", "showTerm");
+            nvc.Add("limit", resultLimit.ToString());
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = await MakeAPICall<TVSeasonListResult>(apiUrl);
+
+            return result;
+        } 
+
+        #endregion
+
+        #region API helpers
 
         /// <summary>
         /// Makes an API call and deserializes return value to the specified type
@@ -80,6 +110,8 @@ namespace iTunesSearch.Library
                 var serializer = new DataContractJsonSerializer(typeof(T));
                 return (T)serializer.ReadObject(stream);
             }
-        }
+        } 
+
+        #endregion
     }
 }
