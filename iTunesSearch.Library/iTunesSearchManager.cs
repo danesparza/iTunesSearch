@@ -112,12 +112,12 @@ namespace iTunesSearch.Library
         /// <typeparam name="T"></typeparam>
         /// <param name="apiCall"></param>
         /// <returns></returns>
-        async private static Task<T> MakeAPICall<T>(string apiCall)
+        async private Task<T> MakeAPICall<T>(string apiCall)
         {
             HttpClient client = new HttpClient();
 
             //  Make an async call to get the response
-            var objString = await client.GetStringAsync(apiCall);
+            var objString = await client.GetStringAsync(apiCall).ConfigureAwait(false);
 
             //  Deserialize and return
             return (T)DeserializeObject<T>(objString);
@@ -129,7 +129,7 @@ namespace iTunesSearch.Library
         /// <typeparam name="T"></typeparam>
         /// <param name="objString"></param>
         /// <returns></returns>
-        private static T DeserializeObject<T>(string objString)
+        private T DeserializeObject<T>(string objString)
         {
             using(var stream = new MemoryStream(Encoding.Unicode.GetBytes(objString)))
             {
