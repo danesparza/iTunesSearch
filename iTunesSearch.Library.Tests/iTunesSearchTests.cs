@@ -78,5 +78,35 @@ namespace iTunesSearch.Library.Tests
             Assert.IsTrue(items.Seasons.Any());
             Assert.AreEqual<string>("Modern Family", items.Seasons.First().ShowName);
         }
+
+        [TestMethod]
+        public void GetTVSeasonsForShow_ValidShowAndCountryCode_ReturnsShows()
+        {
+            //  Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string showName = "King of the Hill";
+            string countryCode = "AU"; /* Australia */
+
+            //  Act
+            var items = search.GetTVSeasonsForShow(showName, 20, countryCode).Result;
+
+            //  Assert
+            Assert.IsTrue(items.Seasons.Any());
+        }
+
+        [TestMethod]
+        public void GetTVEpisodesForShow_ValidShowAndCountryCode_ReturnsEpisodes()
+        {
+            //  Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string showName = "King of the Hill";
+            string countryCode = "AU"; /* Australia */
+
+            //  Act
+            var items = search.GetTVEpisodesForShow(showName, 200, countryCode).Result;
+
+            //  Assert
+            Assert.IsTrue(items.Episodes.Any());
+        }
     }
 }

@@ -34,8 +34,10 @@ namespace iTunesSearch.Library
         /// </summary>
         /// <param name="showName">The TV show name to search for</param>
         /// <param name="resultLimit">Limit the result count to this number</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search. 
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
-        public async Task<TVEpisodeListResult> GetTVEpisodesForShow(string showName, int resultLimit = 100)
+        public async Task<TVEpisodeListResult> GetTVEpisodesForShow(string showName, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
@@ -45,6 +47,7 @@ namespace iTunesSearch.Library
             nvc.Add("entity", "tvEpisode");
             nvc.Add("attribute", "showTerm");
             nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
 
             //  Construct the url:
             string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
@@ -60,8 +63,10 @@ namespace iTunesSearch.Library
         /// </summary>
         /// <param name="showName">The TV show name to search for</param>
         /// <param name="resultLimit">Limit the result count to this number</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search. 
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
-        public async Task<TVSeasonListResult> GetTVSeasonsForShow(string showName, int resultLimit = 10)
+        public async Task<TVSeasonListResult> GetTVSeasonsForShow(string showName, int resultLimit = 10, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
@@ -71,6 +76,7 @@ namespace iTunesSearch.Library
             nvc.Add("entity", "tvSeason");
             nvc.Add("attribute", "showTerm");
             nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
 
             //  Construct the url:
             string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
