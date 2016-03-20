@@ -108,5 +108,35 @@ namespace iTunesSearch.Library.Tests
             //  Assert
             Assert.IsTrue(items.Episodes.Any());
         }
+
+        [TestMethod]
+        public void GetPodcasts_ValidPodcast_ReturnsEpisodes()
+        {
+            //  Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string showName = "Radiolab";
+
+            //  Act
+            var items = search.GetPodcasts(showName, 200).Result;
+
+            //  Assert
+            Assert.IsTrue(items.Podcasts.Any());
+        }
+
+        [TestMethod]
+        public void GetPodcastById_ValidId_ReturnsPodcast()
+        {
+            //  Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long podcastId = 1002937870;
+
+            //  Act
+            var items = search.GetPodcastById(podcastId).Result;
+
+            //  Assert
+            Assert.IsTrue(items.Podcasts.Any());
+            Assert.AreEqual<string>("Dear Hank & John", items.Podcasts.First().Name);
+        }
+
     }
 }
