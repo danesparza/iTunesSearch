@@ -54,6 +54,9 @@ namespace iTunesSearch.Library.Models
         [DataMember(Name = "longDescription")]
         public string Description { get; set; }
 
+        [DataMember(Name = "feedUrl")]
+        public string FeedUrl { get; set; }
+
         /// <summary>
         /// The parsed 'large' artwork url
         /// </summary>
