@@ -3,3 +3,10 @@ iTunesSearch [![Build status](https://ci.appveyor.com/api/projects/status/qoe200
 
 A .NET wrapper to the iTunes search API
 
+### Quick Start
+
+Install the [NuGet package](https://www.nuget.org/packages/iTunesSearch/) from the package manager console:
+
+```powershell
+Install-Package iTunesSearch
+```
