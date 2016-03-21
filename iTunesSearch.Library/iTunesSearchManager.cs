@@ -27,6 +27,57 @@ namespace iTunesSearch.Library
         /// </summary>
         private string _baseLookupUrl = "https://itunes.apple.com/lookup?{0}";
 
+        #region Podcast Search
+
+        /// <summary>
+        /// Get a list of episodes for a given Podcast
+        /// </summary>
+        /// <param name="podcast">The Podcast name to search for</param>
+        /// <param name="resultLimit">Limit the result count to this number</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search. 
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
+        /// <returns></returns>
+        public async Task<PodcastListResult> GetPodcasts(string podcast, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("term", podcast);
+            nvc.Add("media", "podcast");
+            nvc.Add("attribute", "titleTerm");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = await MakeAPICall<PodcastListResult>(apiUrl);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Looks up a Podcast by its unique iTunes id
+        /// </summary>
+        /// <param name="podcastId"></param>
+        /// <returns></returns>
+        public async Task<PodcastListResult> GetPodcastById(long podcastId)
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            //  Set attributes for a podcast  
+            nvc.Add("id", podcastId.ToString());
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the list of podcasts
+            var result = await MakeAPICall<PodcastListResult>(apiUrl);
+            return result;
+        }
+
+        #endregion
+
         #region TV shows
 
         /// <summary>
@@ -145,5 +196,6 @@ namespace iTunesSearch.Library
         } 
 
         #endregion
+
     }
 }
