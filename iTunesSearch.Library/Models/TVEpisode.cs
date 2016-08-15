@@ -102,7 +102,7 @@ namespace iTunesSearch.Library.Models
 
                 if(!string.IsNullOrEmpty(this.ArtworkUrl))
                 {
-                    retval = this.ArtworkUrl.Replace("100x100-75", "300x300-75");
+                    retval = this.ArtworkUrl.Replace("100x100", "600x600");
                 }
 
                 return retval;
