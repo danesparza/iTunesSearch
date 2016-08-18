@@ -95,7 +95,7 @@ namespace iTunesSearch.Library.Models
                 //  See if we can parse the large artwork url from the regular artwork url
                 try
                 {
-                    retval = this.ArtworkUrl.Replace("100x100-75", "600x600-75");
+                    retval = this.ArtworkUrl.Replace("100x100", "600x600");
                 }
                 catch(Exception)
                 { }

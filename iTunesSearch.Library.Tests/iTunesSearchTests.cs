@@ -76,7 +76,25 @@ namespace iTunesSearch.Library.Tests
 
             //  Assert
             Assert.IsTrue(items.Seasons.Any());
-            Assert.AreEqual<string>("Modern Family", items.Seasons.First().ShowName);
+            Assert.AreEqual("Modern Family", items.Seasons.First().ShowName);
+        }
+
+        [TestMethod]
+        public void GetTVSeasonById_ValidSeasonId_ReturnsCorrectLargeArtwork()
+        {
+            //  Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long seasonId = 316075588;
+            string expectedShowName = "Gilmore Girls";
+            string expectedLargeArtworkUrl = "http://is1.mzstatic.com/image/thumb/Music3/v4/bf/c4/8f/bfc48f90-9fc4-39d2-7cca-f0e53c8b3377/source/600x600bb.jpg";
+
+            //  Act
+            var items = search.GetTVSeasonById(seasonId).Result;
+
+            //  Assert
+            Assert.IsTrue(items.Seasons.Any());
+            Assert.AreEqual(expectedShowName, items.Seasons.First().ShowName);
+            Assert.AreEqual(expectedLargeArtworkUrl, items.Seasons.First().ArtworkUrlLarge);
         }
 
         [TestMethod]
@@ -135,7 +153,7 @@ namespace iTunesSearch.Library.Tests
 
             //  Assert
             Assert.IsTrue(items.Podcasts.Any());
-            Assert.AreEqual<string>("Dear Hank and John", items.Podcasts.First().Name);
+            Assert.AreEqual("Dear Hank and John", items.Podcasts.First().Name);
             Assert.AreEqual("http://feeds.soundcloud.com/users/soundcloud:users:156542883/sounds.rss", items.Podcasts.First().FeedUrl);
         }
 
