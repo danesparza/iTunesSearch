@@ -1,14 +1,18 @@
-﻿using iTunesSearch.Library.Models;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using iTunesSearch.Library.Models;
 
 namespace iTunesSearch.Library
 {
     /// <summary>
-    /// A wrapper for the iTunes search API.  More information here:
+    /// A wrapper for the iTunes search API.  More information here: 
     /// https://www.apple.com/itunes/affiliates/resources/documentation/itunes-store-web-service-search-api.html
     /// </summary>
     public class iTunesSearchManager
@@ -30,7 +34,7 @@ namespace iTunesSearch.Library
         /// </summary>
         /// <param name="podcast">The Podcast name to search for</param>
         /// <param name="resultLimit">Limit the result count to this number</param>
-        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search. 
         /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
         public async Task<PodcastListResult> GetPodcasts(string podcast, int resultLimit = 100, string countryCode = "us")
@@ -61,7 +65,7 @@ namespace iTunesSearch.Library
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
-            //  Set attributes for a podcast
+            //  Set attributes for a podcast  
             nvc.Add("id", podcastId.ToString());
 
             //  Construct the url:
@@ -72,7 +76,7 @@ namespace iTunesSearch.Library
             return result;
         }
 
-        #endregion Podcast Search
+        #endregion
 
         #region TV shows
 
@@ -81,14 +85,14 @@ namespace iTunesSearch.Library
         /// </summary>
         /// <param name="showName">The TV show name to search for</param>
         /// <param name="resultLimit">Limit the result count to this number</param>
-        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search. 
         /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
         public async Task<TVEpisodeListResult> GetTVEpisodesForShow(string showName, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
-            //  Set attributes for a TV season.
+            //  Set attributes for a TV season.  
             nvc.Add("term", showName);
             nvc.Add("media", "tvShow");
             nvc.Add("entity", "tvEpisode");
@@ -110,14 +114,14 @@ namespace iTunesSearch.Library
         /// </summary>
         /// <param name="showName">The TV show name to search for</param>
         /// <param name="resultLimit">Limit the result count to this number</param>
-        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search. 
         /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
         public async Task<TVSeasonListResult> GetTVSeasonsForShow(string showName, int resultLimit = 10, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
-            //  Set attributes for a TV season.
+            //  Set attributes for a TV season.  
             nvc.Add("term", showName);
             nvc.Add("media", "tvShow");
             nvc.Add("entity", "tvSeason");
@@ -143,7 +147,7 @@ namespace iTunesSearch.Library
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
-            //  Set attributes for a TV season.
+            //  Set attributes for a TV season.  
             nvc.Add("id", seasonId.ToString());
 
             //  Construct the url:
@@ -155,7 +159,7 @@ namespace iTunesSearch.Library
             return result;
         }
 
-        #endregion TV shows
+        #endregion
 
         #region API helpers
 
@@ -184,13 +188,14 @@ namespace iTunesSearch.Library
         /// <returns></returns>
         private T DeserializeObject<T>(string objString)
         {
-            using (var stream = new MemoryStream(Encoding.Unicode.GetBytes(objString)))
+            using(var stream = new MemoryStream(Encoding.Unicode.GetBytes(objString)))
             {
                 var serializer = new DataContractJsonSerializer(typeof(T));
                 return (T)serializer.ReadObject(stream);
             }
-        }
+        } 
 
-        #endregion API helpers
+        #endregion
+
     }
 }
