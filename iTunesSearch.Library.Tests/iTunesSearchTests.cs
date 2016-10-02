@@ -1,8 +1,7 @@
-﻿using System;
+﻿using iTunesSearch.Library.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Linq;
-using iTunesSearch.Library.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace iTunesSearch.Library.Tests
 {
@@ -34,16 +33,16 @@ namespace iTunesSearch.Library.Tests
             var items = search.GetTVEpisodesForShow(showName, 200).Result;
             var seasons = from episode in items.Episodes
                           orderby episode.Number
-                             group episode by episode.SeasonNumber into seasonGroup
-                             orderby seasonGroup.Key
-                             select seasonGroup;
+                          group episode by episode.SeasonNumber into seasonGroup
+                          orderby seasonGroup.Key
+                          select seasonGroup;
 
             //  Assert
-            foreach(var seasonGroup in seasons)
+            foreach (var seasonGroup in seasons)
             {
                 Debug.WriteLine("Season number: {0}", seasonGroup.Key);
 
-                foreach(TVEpisode episode in seasonGroup)
+                foreach (TVEpisode episode in seasonGroup)
                 {
                     Debug.WriteLine("Ep {0}: {1}", episode.Number, episode.Name);
                 }
@@ -86,7 +85,7 @@ namespace iTunesSearch.Library.Tests
             iTunesSearchManager search = new iTunesSearchManager();
             long seasonId = 316075588;
             string expectedShowName = "Gilmore Girls";
-            string expectedLargeArtworkUrl = "http://is1.mzstatic.com/image/thumb/Music3/v4/bf/c4/8f/bfc48f90-9fc4-39d2-7cca-f0e53c8b3377/source/600x600bb.jpg";
+            string expectedLargeArtworkUrl = "http://is3.mzstatic.com/image/thumb/Music71/v4/8f/5c/1d/8f5c1d3d-c025-de7d-099e-6f55764e0d21/source/600x600bb.jpg";
 
             //  Act
             var items = search.GetTVSeasonById(seasonId).Result;
@@ -156,6 +155,5 @@ namespace iTunesSearch.Library.Tests
             Assert.AreEqual("Dear Hank and John", items.Podcasts.First().Name);
             Assert.AreEqual("http://feeds.soundcloud.com/users/soundcloud:users:156542883/sounds.rss", items.Podcasts.First().FeedUrl);
         }
-
     }
 }
