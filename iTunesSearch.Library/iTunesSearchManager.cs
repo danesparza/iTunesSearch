@@ -197,6 +197,45 @@ namespace iTunesSearch.Library
 
             return result;
         }
+
+        public async Task<AlbumResult> GetAlbumsAsync(string album, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("term", album);
+            nvc.Add("media", "music");
+            nvc.Add("entity", "album");
+            nvc.Add("attribute", "albumTerm");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = await MakeAPICall<AlbumResult>(apiUrl);
+
+            return result;
+        }
+        public async Task<AlbumResult> GetAlbumsFromSongAsync(string song, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("term", song);
+            nvc.Add("media", "music");
+            nvc.Add("entity", "album");
+            nvc.Add("attribute", "songTerm");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = await MakeAPICall<AlbumResult>(apiUrl);
+
+            return result;
+        }
         #endregion
 
         #region API helpers

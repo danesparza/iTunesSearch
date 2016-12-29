@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="HttpUtility.cs" />
     <Compile Include="iTunesSearchManager.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\AlbumResult.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="Models\SongArtist.cs" />
     <Compile Include="Models\SongArtistResult.cs" />
