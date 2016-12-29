@@ -157,6 +157,48 @@ namespace iTunesSearch.Library
 
         #endregion TV shows
 
+        #region Music Search
+        public async Task<SongArtistResult> GetSongArtistsAsync(string artist, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("term", artist);
+            nvc.Add("media", "music");
+            nvc.Add("entity", "musicArtist");
+            nvc.Add("attribute", "artistTerm");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = await MakeAPICall<SongArtistResult>(apiUrl);
+
+            return result;
+        }
+
+        public async Task<SongResult> GetSongsAsync(string artist, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("term", artist);
+            nvc.Add("media", "music");
+            nvc.Add("entity", "musicTrack");
+            nvc.Add("attribute", "songTerm");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = await MakeAPICall<SongResult>(apiUrl);
+
+            return result;
+        }
+        #endregion
+
         #region API helpers
 
         /// <summary>
