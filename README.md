@@ -1,4 +1,4 @@
-iTunesSearch [![Build status](https://ci.appveyor.com/api/projects/status/qoe200t6mxxwieic?svg=true)](https://ci.appveyor.com/project/danesparza/itunessearch)
+iTunesSearch [![Build status](https://ci.appveyor.com/api/projects/status/qoe200t6mxxwieic?svg=true)](https://ci.appveyor.com/project/danesparza/itunessearch) [![NuGet](https://img.shields.io/nuget/v/iTunesSearch.svg)](https://www.nuget.org/packages/iTunesSearch/)
 ============
 
 A .NET wrapper to the iTunes search API
