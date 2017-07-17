@@ -85,7 +85,7 @@ namespace iTunesSearch.Library.Tests
             iTunesSearchManager search = new iTunesSearchManager();
             long seasonId = 316075588;
             string expectedShowName = "Gilmore Girls";
-            string expectedLargeArtworkUrl = "http://is3.mzstatic.com/image/thumb/Music71/v4/8f/5c/1d/8f5c1d3d-c025-de7d-099e-6f55764e0d21/source/600x600bb.jpg";
+            string expectedLargeArtworkUrl = "http://is1.mzstatic.com/image/thumb/Music71/v4/82/28/39/8228392e-f1f9-3b64-6c0f-14ba1f958a92/source/600x600bb.jpg";
 
             //  Act
             var items = search.GetTVSeasonById(seasonId).Result;
@@ -101,7 +101,7 @@ namespace iTunesSearch.Library.Tests
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
-            string showName = "King of the Hill";
+            string showName = "Top of the Lake";
             string countryCode = "AU"; /* Australia */
 
             //  Act
@@ -116,7 +116,7 @@ namespace iTunesSearch.Library.Tests
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
-            string showName = "King of the Hill";
+            string showName = "Top of the Lake";
             string countryCode = "AU"; /* Australia */
 
             //  Act
