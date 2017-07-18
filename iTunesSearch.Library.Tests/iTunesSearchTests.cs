@@ -23,6 +23,21 @@ namespace iTunesSearch.Library.Tests
         }
 
         [TestMethod]
+        public void GetArtistById_InvalidArtist_ReturnsDefaultInstanceOfSongArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long artistId = 5858500001;
+
+            // Act
+            var item = search.GetSongArtistByArtistIdAsync(artistId).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(item, typeof(SongArtist));
+            Assert.IsTrue(item.ArtistName == default(string));
+        }
+
+        [TestMethod]
         public void GetArtistByAMGArtistId_ValidArtist_ReturnsArtist()
         {
             // Arrange
@@ -34,6 +49,49 @@ namespace iTunesSearch.Library.Tests
 
             // Assert
             Assert.IsTrue(item.ArtistName == "R.E.M.");
+        }
+
+        [TestMethod]
+        public void GetArtistByAMGArtistId_InvalidArtist_ReturnsDefaultInstanceOfSongArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long amgArtistId = 5858500001;
+
+            // Act
+            var item = search.GetSongArtistByAMGArtistIdAsync(amgArtistId).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(item, typeof(SongArtist));
+            Assert.IsTrue(item.ArtistName == default(string));
+        }
+
+        [TestMethod]
+        public void GetAlbumsByArtistId_ValidArtist_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long artistId = 311145;
+
+            // Act
+            var items = search.GetAlbumsByArtistIdAsync(artistId, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any(al => al.CollectionName == "Life's Rich Pageant"));
+        }
+
+        [TestMethod]
+        public void GetAlbumsByAMGArtistId_ValidArtist_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long amgArtistId = 116437;
+
+            // Act
+            var items = search.GetAlbumsByAMGArtistIdAsync(amgArtistId, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any(al => al.CollectionName == "Life's Rich Pageant"));
         }
 
         [TestMethod]

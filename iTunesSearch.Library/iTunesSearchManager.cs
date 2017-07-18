@@ -169,10 +169,10 @@ namespace iTunesSearch.Library
             //  Construct the url:
             string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
 
-            //  Get the list of episodes
+            //  Get the artist
             var result = (await MakeAPICall<SongArtistResult>(apiUrl)).Artists.FirstOrDefault();
 
-            return result;
+            return result ?? new SongArtist();
         }
 
         public async Task<SongArtist> GetSongArtistByAMGArtistIdAsync(long amgArtistId)
@@ -184,8 +184,44 @@ namespace iTunesSearch.Library
             //  Construct the url:
             string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
 
-            //  Get the list of episodes
+            //  Get the artist
             var result = (await MakeAPICall<SongArtistResult>(apiUrl)).Artists.FirstOrDefault();
+
+            return result ?? new SongArtist();
+        }
+
+        public async Task<AlbumResult> GetAlbumsByArtistIdAsync(long artistId, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("id", artistId.ToString());
+            nvc.Add("entity", "album");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the albums
+            var result = await MakeAPICall<AlbumResult>(apiUrl);
+
+            return result;
+        }
+
+        public async Task<AlbumResult> GetAlbumsByAMGArtistIdAsync(long amgArtistId, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("amgArtistId", amgArtistId.ToString());
+            nvc.Add("entity", "album");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the albums
+            var result = await MakeAPICall<AlbumResult>(apiUrl);
 
             return result;
         }
