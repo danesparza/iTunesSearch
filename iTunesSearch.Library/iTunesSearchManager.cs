@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace iTunesSearch.Library
 {
@@ -158,6 +159,37 @@ namespace iTunesSearch.Library
         #endregion TV shows
 
         #region Music Search
+
+        public async Task<SongArtist> GetSongArtistByArtistIdAsync(long artistId)
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("id", artistId.ToString());            
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = (await MakeAPICall<SongArtistResult>(apiUrl)).Artists.FirstOrDefault();
+
+            return result;
+        }
+
+        public async Task<SongArtist> GetSongArtistByAMGArtistIdAsync(long amgArtistId)
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("amgArtistId", amgArtistId.ToString());
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the list of episodes
+            var result = (await MakeAPICall<SongArtistResult>(apiUrl)).Artists.FirstOrDefault();
+
+            return result;
+        }
+
         public async Task<SongArtistResult> GetSongArtistsAsync(string artist, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);

@@ -9,6 +9,34 @@ namespace iTunesSearch.Library.Tests
     public class iTunesSearchTests
     {
         [TestMethod]
+        public void GetArtistById_ValidArtist_ReturnsArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long artistId = 311145;
+
+            // Act
+            var item = search.GetSongArtistByArtistIdAsync(artistId).Result;
+
+            // Assert
+            Assert.IsTrue(item.ArtistName == "R.E.M.");
+        }
+
+        [TestMethod]
+        public void GetArtistByAMGArtistId_ValidArtist_ReturnsArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long amgArtistId = 116437;
+
+            // Act
+            var item = search.GetSongArtistByAMGArtistIdAsync(amgArtistId).Result;
+
+            // Assert
+            Assert.IsTrue(item.ArtistName == "R.E.M.");
+        }
+
+        [TestMethod]
         public void GetSongArtists_ValidArtists_ReturnsArtists()
         {
             // Arrange
