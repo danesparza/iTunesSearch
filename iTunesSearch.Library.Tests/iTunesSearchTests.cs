@@ -9,6 +9,151 @@ namespace iTunesSearch.Library.Tests
     public class iTunesSearchTests
     {
         [TestMethod]
+        public void GetArtistById_ValidArtist_ReturnsArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long artistId = 311145;
+
+            // Act
+            var item = search.GetSongArtistByArtistIdAsync(artistId).Result;
+
+            // Assert
+            Assert.IsTrue(item.ArtistName == "R.E.M.");
+        }
+
+        [TestMethod]
+        public void GetArtistById_InvalidArtist_ReturnsDefaultInstanceOfSongArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long artistId = 5858500001;
+
+            // Act
+            var item = search.GetSongArtistByArtistIdAsync(artistId).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(item, typeof(SongArtist));
+            Assert.IsTrue(item.ArtistName == default(string));
+        }
+
+        [TestMethod]
+        public void GetArtistByAMGArtistId_ValidArtist_ReturnsArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long amgArtistId = 116437;
+
+            // Act
+            var item = search.GetSongArtistByAMGArtistIdAsync(amgArtistId).Result;
+
+            // Assert
+            Assert.IsTrue(item.ArtistName == "R.E.M.");
+        }
+
+        [TestMethod]
+        public void GetArtistByAMGArtistId_InvalidArtist_ReturnsDefaultInstanceOfSongArtist()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long amgArtistId = 5858500001;
+
+            // Act
+            var item = search.GetSongArtistByAMGArtistIdAsync(amgArtistId).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(item, typeof(SongArtist));
+            Assert.IsTrue(item.ArtistName == default(string));
+        }
+
+        [TestMethod]
+        public void GetAlbumsByArtistId_ValidArtist_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long artistId = 311145;
+
+            // Act
+            var items = search.GetAlbumsByArtistIdAsync(artistId, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any(al => al.CollectionName == "Life's Rich Pageant"));
+        }
+
+        [TestMethod]
+        public void GetAlbumsByAMGArtistId_ValidArtist_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            long amgArtistId = 116437;
+
+            // Act
+            var items = search.GetAlbumsByAMGArtistIdAsync(amgArtistId, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any(al => al.CollectionName == "Life's Rich Pageant"));
+        }
+
+        [TestMethod]
+        public void GetSongArtists_ValidArtists_ReturnsArtists()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string artist = "R.E.M.";
+
+            // Act
+            var items = search.GetSongArtistsAsync(artist, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Artists.Any());
+        }
+
+        [TestMethod]
+        public void GetSongs_ValidSongs_ReturnsSongs()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string song = "Driver 8";
+
+            // Act
+            var items = search.GetSongsAsync(song, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Songs.Any());
+            Assert.IsTrue(items.Songs.Any(s => s.TrackName == "Driver 8" && s.ArtistName == "R.E.M."));
+        }
+
+        [TestMethod]
+        public void GetAlbums_ValidAlbums_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string album = "Collapse into Now";
+
+            // Act
+            var items = search.GetAlbumsAsync(album, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any());
+            Assert.IsTrue(items.Albums.Any(al => al.ArtistName == "R.E.M."));
+        }
+
+        [TestMethod]
+        public void GetAlbumsFromSong_ValidAlbums_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string song = "Driver 8";
+
+            // Act
+            var items = search.GetAlbumsFromSongAsync(song, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any());
+            Assert.IsTrue(items.Albums.Any(al => al.ArtistName == "R.E.M." && al.CollectionName == "Fables of the Reconstruction"));
+        }
+
+        [TestMethod]
         public void GetTVEpisodesForShow_ValidShow_ReturnsEpisodes()
         {
             //  Arrange
@@ -85,7 +230,7 @@ namespace iTunesSearch.Library.Tests
             iTunesSearchManager search = new iTunesSearchManager();
             long seasonId = 316075588;
             string expectedShowName = "Gilmore Girls";
-            string expectedLargeArtworkUrl = "http://is3.mzstatic.com/image/thumb/Music71/v4/8f/5c/1d/8f5c1d3d-c025-de7d-099e-6f55764e0d21/source/600x600bb.jpg";
+            string expectedLargeArtworkUrl = "http://is1.mzstatic.com/image/thumb/Music71/v4/82/28/39/8228392e-f1f9-3b64-6c0f-14ba1f958a92/source/600x600bb.jpg";
 
             //  Act
             var items = search.GetTVSeasonById(seasonId).Result;
@@ -101,7 +246,7 @@ namespace iTunesSearch.Library.Tests
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
-            string showName = "King of the Hill";
+            string showName = "Top of the Lake";
             string countryCode = "AU"; /* Australia */
 
             //  Act
@@ -116,7 +261,7 @@ namespace iTunesSearch.Library.Tests
         {
             //  Arrange
             iTunesSearchManager search = new iTunesSearchManager();
-            string showName = "King of the Hill";
+            string showName = "Top of the Lake";
             string countryCode = "AU"; /* Australia */
 
             //  Act

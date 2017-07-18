@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace iTunesSearch.Library
 {
@@ -158,6 +159,107 @@ namespace iTunesSearch.Library
         #endregion TV shows
 
         #region Music Search
+
+        /// <summary>
+        /// Looks up an artist by its unique iTunes id.
+        /// </summary>
+        /// <param name="artistId">The artist id value.</param>
+        /// <returns></returns>
+        public async Task<SongArtist> GetSongArtistByArtistIdAsync(long artistId)
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("id", artistId.ToString());            
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the artist
+            var result = (await MakeAPICall<SongArtistResult>(apiUrl)).Artists.FirstOrDefault();
+
+            return result ?? new SongArtist();
+        }
+
+        /// <summary>
+        /// Looks up an artist by its unique AMG id.
+        /// </summary>
+        /// <param name="amgArtistId">The AMG id value.</param>
+        /// <returns></returns>
+        public async Task<SongArtist> GetSongArtistByAMGArtistIdAsync(long amgArtistId)
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("amgArtistId", amgArtistId.ToString());
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the artist
+            var result = (await MakeAPICall<SongArtistResult>(apiUrl)).Artists.FirstOrDefault();
+
+            return result ?? new SongArtist();
+        }
+
+        /// <summary>
+        /// Looks up albums for an artist by its unique iTunes id.
+        /// </summary>
+        /// <param name="artistId">The artist id value.</param>
+        /// <param name="resultLimit">Limit the result count to this number.</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
+        /// <returns></returns>
+        public async Task<AlbumResult> GetAlbumsByArtistIdAsync(long artistId, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("id", artistId.ToString());
+            nvc.Add("entity", "album");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the albums
+            var result = await MakeAPICall<AlbumResult>(apiUrl);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Looks up albums for an artist by its unique AMG id.
+        /// </summary>
+        /// <param name="amgArtistId">The AMG id value.</param>
+        /// <param name="resultLimit">Limit the result count to this number.</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
+        /// <returns></returns>
+        public async Task<AlbumResult> GetAlbumsByAMGArtistIdAsync(long amgArtistId, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("amgArtistId", amgArtistId.ToString());
+            nvc.Add("entity", "album");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseLookupUrl, nvc.ToString());
+
+            //  Get the albums
+            var result = await MakeAPICall<AlbumResult>(apiUrl);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a list of artists for a given search term
+        /// </summary>
+        /// <param name="artist">The artist name to search for.</param>
+        /// <param name="resultLimit">Limit the result count to this number.</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
+        /// <returns></returns>
         public async Task<SongArtistResult> GetSongArtistsAsync(string artist, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
@@ -178,11 +280,19 @@ namespace iTunesSearch.Library
             return result;
         }
 
-        public async Task<SongResult> GetSongsAsync(string artist, int resultLimit = 100, string countryCode = "us")
+        /// <summary>
+        /// Gets a list of songs for a given search term.
+        /// </summary>
+        /// <param name="song">The song name to search for.</param>
+        /// <param name="resultLimit">Limit the result count to this number.</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
+        /// <returns></returns>
+        public async Task<SongResult> GetSongsAsync(string song, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
-            nvc.Add("term", artist);
+            nvc.Add("term", song);
             nvc.Add("media", "music");
             nvc.Add("entity", "musicTrack");
             nvc.Add("attribute", "songTerm");
@@ -198,6 +308,14 @@ namespace iTunesSearch.Library
             return result;
         }
 
+        /// <summary>
+        /// Gets a list of albums for a given search term.
+        /// </summary>
+        /// <param name="album">The album name to search for.</param>
+        /// <param name="resultLimit">Limit the result count to this number.</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
+        /// <returns></returns>
         public async Task<AlbumResult> GetAlbumsAsync(string album, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
@@ -217,6 +335,15 @@ namespace iTunesSearch.Library
 
             return result;
         }
+
+        /// <summary>
+        /// Gets a list of albums for a given search term.
+        /// </summary>
+        /// <param name="song">The song name featured in albums to search for.</param>
+        /// <param name="resultLimit">Limit the result count to this number.</param>
+        /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
+        /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
+        /// <returns></returns>
         public async Task<AlbumResult> GetAlbumsFromSongAsync(string song, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
