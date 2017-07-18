@@ -9,6 +9,65 @@ namespace iTunesSearch.Library.Tests
     public class iTunesSearchTests
     {
         [TestMethod]
+        public void GetSongArtists_ValidArtists_ReturnsArtists()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string artist = "R.E.M.";
+
+            // Act
+            var items = search.GetSongArtistsAsync(artist, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Artists.Any());
+        }
+
+        [TestMethod]
+        public void GetSongs_ValidSongs_ReturnsSongs()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string song = "Driver 8";
+
+            // Act
+            var items = search.GetSongsAsync(song, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Songs.Any());
+            Assert.IsTrue(items.Songs.Any(s => s.TrackName == "Driver 8" && s.ArtistName == "R.E.M."));
+        }
+
+        [TestMethod]
+        public void GetAlbums_ValidAlbums_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string album = "Collapse into Now";
+
+            // Act
+            var items = search.GetAlbumsAsync(album, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any());
+            Assert.IsTrue(items.Albums.Any(al => al.ArtistName == "R.E.M."));
+        }
+
+        [TestMethod]
+        public void GetAlbumsFromSong_ValidAlbums_ReturnsAlbums()
+        {
+            // Arrange
+            iTunesSearchManager search = new iTunesSearchManager();
+            string song = "Driver 8";
+
+            // Act
+            var items = search.GetAlbumsFromSongAsync(song, 200).Result;
+
+            // Assert
+            Assert.IsTrue(items.Albums.Any());
+            Assert.IsTrue(items.Albums.Any(al => al.ArtistName == "R.E.M." && al.CollectionName == "Fables of the Reconstruction"));
+        }
+
+        [TestMethod]
         public void GetTVEpisodesForShow_ValidShow_ReturnsEpisodes()
         {
             //  Arrange
