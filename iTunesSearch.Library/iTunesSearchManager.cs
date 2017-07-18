@@ -178,11 +178,11 @@ namespace iTunesSearch.Library
             return result;
         }
 
-        public async Task<SongResult> GetSongsAsync(string artist, int resultLimit = 100, string countryCode = "us")
+        public async Task<SongResult> GetSongsAsync(string song, int resultLimit = 100, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
-            nvc.Add("term", artist);
+            nvc.Add("term", song);
             nvc.Add("media", "music");
             nvc.Add("entity", "musicTrack");
             nvc.Add("attribute", "songTerm");
