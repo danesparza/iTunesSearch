@@ -13,7 +13,7 @@ Install-Package iTunesSearch
 
 ### Examples
 
-#####Get TV episodes for a show name:
+##### Get TV episodes for a show name:
 ```csharp
 //  Arrange
 iTunesSearchManager search = new iTunesSearchManager();
@@ -26,7 +26,7 @@ var items = search.GetTVEpisodesForShow(showName, 200).Result;
 Assert.IsTrue(items.Episodes.Any());
 ```
 
-#####Group episodes for a season:
+##### Group episodes for a season:
 ```csharp
 //  Arrange
 iTunesSearchManager search = new iTunesSearchManager();
@@ -52,7 +52,7 @@ foreach(var seasonGroup in seasons)
 }
 ```
 
-#####Get TV seasons for a show:
+##### Get TV seasons for a show:
 ```csharp
  //  Arrange
 iTunesSearchManager search = new iTunesSearchManager();
@@ -65,7 +65,7 @@ var items = search.GetTVSeasonsForShow(showName).Result;
 Assert.IsTrue(items.Seasons.Any());
 ```
 
-#####Get TV seasons for a given show name and country code:
+##### Get TV seasons for a given show name and country code:
 ```csharp
  //  Arrange
 iTunesSearchManager search = new iTunesSearchManager();
@@ -79,7 +79,7 @@ var items = search.GetTVSeasonsForShow(showName, 20, countryCode).Result;
 Assert.IsTrue(items.Seasons.Any());
 ```
 
-#####Get podcasts for a given name:
+##### Get podcasts for a given name:
 ```csharp
 //  Arrange
 iTunesSearchManager search = new iTunesSearchManager();
