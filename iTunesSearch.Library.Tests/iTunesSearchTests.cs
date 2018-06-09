@@ -298,7 +298,7 @@ namespace iTunesSearch.Library.Tests
             //  Assert
             Assert.IsTrue(items.Podcasts.Any());
             Assert.AreEqual("Dear Hank and John", items.Podcasts.First().Name);
-            Assert.AreEqual("http://feeds.soundcloud.com/users/soundcloud:users:156542883/sounds.rss", items.Podcasts.First().FeedUrl);
+            Assert.AreEqual("http://dearhankandjohn.libsyn.com/rss", items.Podcasts.First().FeedUrl);
         }
     }
 }
