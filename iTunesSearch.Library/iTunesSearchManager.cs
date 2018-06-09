@@ -288,14 +288,17 @@ namespace iTunesSearch.Library
         /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
         /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
-        public async Task<SongResult> GetSongsAsync(string song, int resultLimit = 100, string countryCode = "us")
+        public async Task<SongResult> GetSongsAsync(string song, int resultLimit = 100, string attribute = null, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
             nvc.Add("term", song);
             nvc.Add("media", "music");
             nvc.Add("entity", "musicTrack");
-            nvc.Add("attribute", "songTerm");
+            if (attribute != null)
+            {
+                nvc.Add("attribute", attribute);
+            }
             nvc.Add("limit", resultLimit.ToString());
             nvc.Add("country", countryCode);
 
@@ -316,14 +319,17 @@ namespace iTunesSearch.Library
         /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
         /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
-        public async Task<AlbumResult> GetAlbumsAsync(string album, int resultLimit = 100, string countryCode = "us")
+        public async Task<AlbumResult> GetAlbumsAsync(string album, int resultLimit = 100, string attribute = null, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
             nvc.Add("term", album);
             nvc.Add("media", "music");
             nvc.Add("entity", "album");
-            nvc.Add("attribute", "albumTerm");
+            if (attribute != null)
+            {
+                nvc.Add("attribute", attribute);
+            }
             nvc.Add("limit", resultLimit.ToString());
             nvc.Add("country", countryCode);
 
@@ -344,14 +350,17 @@ namespace iTunesSearch.Library
         /// <param name="countryCode">The two-letter country ISO code for the store you want to search.
         /// See http://en.wikipedia.org/wiki/%20ISO_3166-1_alpha-2 for a list of ISO country codes</param>
         /// <returns></returns>
-        public async Task<AlbumResult> GetAlbumsFromSongAsync(string song, int resultLimit = 100, string countryCode = "us")
+        public async Task<AlbumResult> GetAlbumsFromSongAsync(string song, int resultLimit = 100, string attribute = null, string countryCode = "us")
         {
             var nvc = HttpUtility.ParseQueryString(string.Empty);
 
             nvc.Add("term", song);
             nvc.Add("media", "music");
             nvc.Add("entity", "album");
-            nvc.Add("attribute", "songTerm");
+            if (attribute != null)
+            {
+                nvc.Add("attribute", attribute);
+            }
             nvc.Add("limit", resultLimit.ToString());
             nvc.Add("country", countryCode);
 
