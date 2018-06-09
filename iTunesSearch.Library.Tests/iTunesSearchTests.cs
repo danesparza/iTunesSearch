@@ -139,21 +139,6 @@ namespace iTunesSearch.Library.Tests
         }
 
         [TestMethod]
-        public void GetAlbumsFromSong_ValidAlbums_ReturnsAlbums()
-        {
-            // Arrange
-            iTunesSearchManager search = new iTunesSearchManager();
-            string song = "Driver 8";
-
-            // Act
-            var items = search.GetAlbumsFromSongAsync(song, 200).Result;
-
-            // Assert
-            Assert.IsTrue(items.Albums.Any());
-            Assert.IsTrue(items.Albums.Any(al => al.ArtistName == "R.E.M." && al.CollectionName == "Fables of the Reconstruction"));
-        }
-
-        [TestMethod]
         public void GetTVEpisodesForShow_ValidShow_ReturnsEpisodes()
         {
             //  Arrange
