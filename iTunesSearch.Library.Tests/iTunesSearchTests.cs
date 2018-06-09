@@ -230,7 +230,7 @@ namespace iTunesSearch.Library.Tests
             iTunesSearchManager search = new iTunesSearchManager();
             long seasonId = 316075588;
             string expectedShowName = "Gilmore Girls";
-            string expectedLargeArtworkUrl = "http://is1.mzstatic.com/image/thumb/Music71/v4/82/28/39/8228392e-f1f9-3b64-6c0f-14ba1f958a92/source/600x600bb.jpg";
+            string expectedLargeArtworkUrl = "https://is1-ssl.mzstatic.com/image/thumb/Music71/v4/82/28/39/8228392e-f1f9-3b64-6c0f-14ba1f958a92/source/600x600bb.jpg";
 
             //  Act
             var items = search.GetTVSeasonById(seasonId).Result;
